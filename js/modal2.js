@@ -1,14 +1,31 @@
-(() => {
-  const refs = {
-    openModalBtn: document.querySelector("[data-modal-open-fead]"),
-    closeModalBtn: document.querySelector("[data-modal-close-fead]"),
-    modal: document.querySelector("[data-modal-fead]"),
-  };
 
-  refs.openModalBtn.addEventListener("click", toggleModal);
-  refs.closeModalBtn.addEventListener("click", toggleModal);
+const goTopBtn = document.querySelector(".go-top");
 
-  function toggleModal() {
-    refs.modal.classList.toggle("is-hidden");
+
+window.addEventListener("scroll", trackScroll);
+
+goTopBtn.addEventListener("click", goTop);
+
+function trackScroll() {
+
+  const scrolled = window.pageYOffset;
+
+  const coords = document.documentElement.clientHeight;
+
+  if (scrolled > coords) {
+
+    goTopBtn.classList.add("go-top--show");
+  } else {
+
+    goTopBtn.classList.remove("go-top--show");
   }
-})();
+}
+
+function goTop() {
+
+  if (window.pageYOffset > 0) {
+  
+    window.scrollBy(0, -25); //другий аргумент - це швидкість скролу
+    setTimeout(goTop, 0); 
+  }
+}
